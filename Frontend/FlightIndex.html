@@ -743,9 +743,14 @@
     }
   ];
 
-  document.getElementById("searchForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+   document.getElementById("searchForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
+  if (!localStorage.getItem("user")) {
+    alert("Please log in to search for flights.");
+    window.location.href = "Login.html"; // Change if needed
+    return;
+  }
     const from = document.getElementById("from").value.trim().toLowerCase();
     const to = document.getElementById("to").value.trim().toLowerCase();
     const depart = document.getElementById("depart").value;
