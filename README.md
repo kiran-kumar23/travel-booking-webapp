@@ -102,12 +102,4 @@ A secure, session-based **Full Stack Travel Booking Web Application** where user
 
 Feel free to connect for feedback or collaboration:
 
-📧 Email: **kiran@example.com**
-
 🌐 GitHub: [kiran-kumar23](https://github.com/kiran-kumar23)
-
----
-
-## 🏁 License
-
-Licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
