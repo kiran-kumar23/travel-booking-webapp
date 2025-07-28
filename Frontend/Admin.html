@@ -230,6 +230,31 @@
             font-weight: 600;
         }
 
+        .summary-cards {
+            display: flex;
+            gap: 15px;
+            padding: 0; /* Remove padding as it's now inside .main which has padding */
+            flex-wrap: wrap;
+            margin-top: 20px; /* Add some space above the summary cards */
+            justify-content: space-around; /* Distribute cards nicely */
+        }
+
+        .summary-cards .card {
+            background-color: var(--card-bg); /* Use white for consistency */
+            border-radius: var(--border-radius-md);
+            padding: 15px 25px;
+            font-weight: bold;
+            box-shadow: var(--box-shadow-sm); /* Consistent shadow */
+            flex: 1; /* Allow cards to grow and shrink */
+            min-width: 180px; /* Minimum width for cards before wrapping */
+            text-align: center;
+            color: var(--header-text); /* Use dark text for card titles */
+        }
+
+        .summary-cards .card span {
+            color: var(--sidebar-active); /* Highlight the numbers with accent color */
+            font-size: 1.2em; /* Slightly larger number */
+        }
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             body {
@@ -323,6 +348,15 @@
                 font-weight: 600;
                 color: var(--header-text);
             }
+
+            .summary-cards {
+                margin-top: 20px;
+                justify-content: center; /* Center cards on small screens */
+            }
+            .summary-cards .card {
+                min-width: unset; /* Remove min-width to allow more flexibility */
+                width: 100%; /* Take full width on small screens */
+            }
         }
     </style>
 </head>
@@ -362,6 +396,12 @@
         </div>
         <div id="tableContainer">
             <p>Select a category from the sidebar to view data.</p>
+        </div>
+        <div id="summaryContainer" class="summary-cards">
+            <div class="card">Hotels: <span id="summary-hotels">0</span></div>
+            <div class="card">Flights: <span id="summary-flights">0</span></div>
+            <div class="card">Cabs: <span id="summary-cabs">0</span></div>
+            <div class="card">Tourist Packages: <span id="summary-tourist">0</span></div>
         </div>
     </div>
 
@@ -417,6 +457,17 @@
                     document.getElementById("tableContainer").innerHTML = `<p style="color:red">Error: ${err.message}</p>`;
                     console.error(`Error fetching ${type} data:`, err);
                 });
+        }
+         function loadAdminSummary() {
+            fetch("http://localhost:8080/api/admin/summary")
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("summary-hotels").textContent = data.hotels;
+                    document.getElementById("summary-flights").textContent = data.flights;
+                    document.getElementById("summary-cabs").textContent = data.cabs;
+                    document.getElementById("summary-tourist").textContent = data.touristPackages;
+                })
+                .catch(err => console.error("Error fetching summary:", err));
         }
 
         // New function for admin logout
